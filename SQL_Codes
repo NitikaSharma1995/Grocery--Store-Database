@@ -1,0 +1,411 @@
+SQL Code:
+Create database GroceryDatabase;
+use GroceryDatabase;
+----use bookdb
+--DROP DATABASE GroceryDatabase
+
+-------------------CREATE GROCERY STORE TABLE------------------
+
+CREATE TABLE Grocery_Store
+(
+Store_ID VARCHAR(10) NOT NULL UNIQUE,
+ST_Name VARCHAR(255) NOT NULL,
+ST_Phone VARCHAR(255) NOT NULL,
+ST_Address VARCHAR(255) NOT NULL,
+ST_Email VARCHAR(255) NOT NULL,
+
+CONSTRAINT pk_Store PRIMARY KEY ( Store_ID)
+);
+
+BUAN 6320.002 GROUP PROJECT ASSIGNMENT MILESTONE-3
+
+14
+
+---DROP table Grocery_Store;
+
+INSERT INTO Grocery_Store VALUES('STR1','Farm
+
+Fresh','9845865258','6777 Frank Road,Plano TX-
+79977','Farm_Fresh007@rediffmail.com');
+
+SELECT * FROM Grocery_Store;
+
+-------------------CREATE SUPPLIER STORE TABLE------------------
+
+CREATE TABLE Supplier
+(
+Supplier_ID VARCHAR(20) NOT NULL UNIQUE,
+SU_Name VARCHAR(255) NOT NULL,
+SU_Phone VARCHAR(255) NOT NULL,
+SU_Address VARCHAR(255) NOT NULL,
+SU_Email VARCHAR(255) NOT NULL,
+
+CONSTRAINT pk_Supplier PRIMARY KEY ( Supplier_ID)
+);
+
+BUAN 6320.002 GROUP PROJECT ASSIGNMENT MILESTONE-3
+
+15
+
+---DROP table Supplier;
+
+INSERT INTO Supplier VALUES('SUP1','Daily Fresh','8768707868','800 E
+Renner ,Dallas TX-75780','dailyfresh1996@yahoo.co.in');
+
+SELECT * FROM Supplier;
+
+-------------------CREATE INVOICE STORE TABLE------------------
+
+CREATE TABLE Invoice
+(
+Invoice_ID VARCHAR(20) NOT NULL UNIQUE,
+Supplier_ID VARCHAR(20) NOT NULL REFERENCES Supplier(Supplier_ID),
+Store_ID VARCHAR(10) NOT NULL REFERENCES
+Grocery_Store(Store_ID),
+Amount VARCHAR(20) NOT NULL,
+CONSTRAINT pk_Invoice PRIMARY KEY (Invoice_ID)
+);
+
+---DROP table Invoice;
+
+BUAN 6320.002 GROUP PROJECT ASSIGNMENT MILESTONE-3
+
+16
+
+INSERT INTO Invoice VALUES('INV1','SUP1','STR1','1100');
+INSERT INTO Invoice VALUES('INV2','SUP1','STR1','1200');
+INSERT INTO Invoice VALUES('INV3','SUP1','STR1','1300');
+INSERT INTO Invoice VALUES('INV4','SUP1','STR1','1400');
+INSERT INTO Invoice VALUES('INV5','SUP1','STR1','1500');
+INSERT INTO Invoice VALUES('INV6','SUP1','STR1','1600');
+INSERT INTO Invoice VALUES('INV7','SUP1','STR1','1700');
+INSERT INTO Invoice VALUES('INV8','SUP1','STR1','1800');
+INSERT INTO Invoice VALUES('INV9','SUP1','STR1','1900');
+
+SELECT * FROM Invoice;
+
+-------------------CREATE EMPLOYEE TABLE------------------
+
+CREATE TABLE Employee
+(
+Employee_ID VARCHAR(255) NOT NULL UNIQUE,
+
+BUAN 6320.002 GROUP PROJECT ASSIGNMENT MILESTONE-3
+
+17
+
+Store_ID VARCHAR(10) NOT NULL REFERENCES
+Grocery_Store(Store_ID),
+E_Name VARCHAR(255) NOT NULL,
+E_Phone VARCHAR(255) NOT NULL,
+E_Type VARCHAR(255) NOT NULL,
+
+CONSTRAINT pk_Employee PRIMARY KEY (Employee_ID)
+);
+---DROP table Employee;
+
+INSERT INTO Employee VALUES('E1','STR1','Allen','9886826261',
+'Cashier');
+INSERT INTO Employee VALUES('E2','STR1','David','9886826262','Cashier');
+INSERT INTO Employee
+VALUES('E3','STR1','Dawit','9886826263','Manager');
+INSERT INTO Employee VALUES('E4','STR1','John','9886826264','Cashier');
+
+SELECT * FROM Employee;
+
+-------------------CREATE CUSTOMER TABLE------------------
+
+BUAN 6320.002 GROUP PROJECT ASSIGNMENT MILESTONE-3
+
+18
+
+CREATE TABLE Customer
+(
+Customer_ID CHAR(15) NOT NULL UNIQUE,
+C_Name VARCHAR(255) NOT NULL,
+C_Phone VARCHAR(255) NOT NULL,
+Customer_Address VARCHAR(255) NOT NULL,
+
+CONSTRAINT pk_Customer PRIMARY KEY ( Customer_ID)
+);
+---DROP table Customer
+
+INSERT INTO Customer VALUES('C1','Temoc','9900303080','Canyon Creek
+Apt,Dallas TX-76767');
+INSERT INTO Customer VALUES('C2','Mike','9876598765','South side
+Apt,Richardson TX-78789');
+INSERT INTO Customer VALUES('C3','Kim','4694694690','Amesbury Drive
+,Dallas TX-79900');
+INSERT INTO Customer VALUES('C4','Nancy','7899876787','700 E Ranger
+road,Plano TX-77778');
+
+BUAN 6320.002 GROUP PROJECT ASSIGNMENT MILESTONE-3
+
+19
+INSERT INTO Customer VALUES('C5','Charles','5768608768','7400 Frankson
+Road,Plano TX-77779');
+INSERT INTO Customer VALUES('C6','Steve','6887807660','Waterview
+Apartments,Plano TX-78989');
+INSERT INTO Customer VALUES('C7','Frank','6887807680','Southwestern
+Drive,Frisco TX-74467');
+INSERT INTO Customer VALUES('C8','Robert','2455525245','Eastern creek
+Parkway,Dallas TX-77777');
+
+SELECT * FROM Customer;
+
+-------------------CREATE ORDER TABLE------------------
+
+CREATE TABLE Order_Table
+(
+Order_ID CHAR(10) NOT NULL,
+Qty VARCHAR(255) NOT NULL,
+Employee_ID VARCHAR(255) NOT NULL REFERENCES
+Employee(Employee_ID),
+Customer_ID CHAR(15) NOT NULL REFERENCES Customer(Customer_ID),
+Date VARCHAR(255) NOT NULL,
+
+BUAN 6320.002 GROUP PROJECT ASSIGNMENT MILESTONE-3
+
+20
+
+Time VARCHAR(255) NOT NULL,
+PRIMARY KEY (Order_ID,Qty)
+);
+---DROP table Order_Table;
+
+INSERT INTO Order_Table VALUES('O4','1','E4','C1','01-05-2020','12:00:00
+PM');
+INSERT INTO Order_Table VALUES('O4','3','E4','C1','01-05-2020','12:00:00
+PM');
+INSERT INTO Order_Table VALUES('O3','1','E4','C1','02-05-2020','12:15:00
+PM');
+INSERT INTO Order_Table VALUES('O2','1','E2','C1','02-05-2020','12:25:00
+PM');
+INSERT INTO Order_Table VALUES('O1','2','E1','C2','02-07-2020','1:00:00
+PM');
+INSERT INTO Order_Table VALUES('O1','1','E1','C2','02-07-2020','1:00:00
+PM');
+INSERT INTO Order_Table VALUES('O8','2','E3','C3','03-07-2020','12:10:00
+PM');
+INSERT INTO Order_Table VALUES('O5','1','E4','C4','03-07-2020','12:15:00
+PM');
+INSERT INTO Order_Table VALUES('O6','1','E2','C4','03-07-2020','12:30:00
+PM');
+
+BUAN 6320.002 GROUP PROJECT ASSIGNMENT MILESTONE-3
+
+21
+INSERT INTO Order_Table VALUES('O10','1','E3','C5','03-07-2020','12:40:00
+PM');
+INSERT INTO Order_Table VALUES('O12','2','E4','C6','03-07-2020','12:40:00
+PM');
+INSERT INTO Order_Table VALUES('O12','1','E4','C6','03-07-2020','12:40:00
+PM');
+INSERT INTO Order_Table VALUES('O11','1','E2','C7','03-07-2020','12:45:00
+PM');
+INSERT INTO Order_Table VALUES('O11','3','E2','C7','03-07-2020','12:45:00
+PM');
+INSERT INTO Order_Table VALUES('O13','1','E1','C8','04-07-2020','1:00:00
+PM');
+
+SELECT * FROM Order_Table;
+
+-------------------CREATE ASSOCIATIVE ENTITY TABLE------------------
+-----DROP Table Associative_Entity
+
+CREATE TABLE Associative_Entity
+(
+Order_ID CHAR(10) NOT NULL,
+
+BUAN 6320.002 GROUP PROJECT ASSIGNMENT MILESTONE-3
+
+22
+
+Qty VARCHAR(255) NOT NULL,
+Item_ID Char(10) NOT NULL UNIQUE,
+
+PRIMARY KEY (Order_ID,Qty,Item_ID)
+);
+
+INSERT INTO Associative_Entity VALUES('O4','1','I1');
+INSERT INTO Associative_Entity VALUES('O4','1','I7');
+INSERT INTO Associative_Entity VALUES('O4','3','I6');
+INSERT INTO Associative_Entity VALUES('O3','1','I5');
+INSERT INTO Associative_Entity VALUES('O2','1','I2');
+INSERT INTO Associative_Entity VALUES('O1','2','I3');
+INSERT INTO Associative_Entity VALUES('O1','1','I4');
+INSERT INTO Associative_Entity VALUES('O8','2','I4');
+INSERT INTO Associative_Entity VALUES('O8','2','I5');
+INSERT INTO Associative_Entity VALUES('O5','1','I5');
+INSERT INTO Associative_Entity VALUES('O5','1','I7');
+INSERT INTO Associative_Entity VALUES('O6','1','I3');
+INSERT INTO Associative_Entity VALUES('O10','1','I3');
+
+BUAN 6320.002 GROUP PROJECT ASSIGNMENT MILESTONE-3
+
+23
+
+INSERT INTO Associative_Entity VALUES('O10','1','I7');
+INSERT INTO Associative_Entity VALUES('O10','1','I6');
+INSERT INTO Associative_Entity VALUES('O10','1','I5');
+INSERT INTO Associative_Entity VALUES('O12','2','I7');
+INSERT INTO Associative_Entity VALUES('O12','1','I3');
+INSERT INTO Associative_Entity VALUES('O11','1','I7');
+INSERT INTO Associative_Entity VALUES('O11','3','I2');
+INSERT INTO Associative_Entity VALUES('O13','1','I6');
+
+SELECT * FROM Associative_Entity;
+
+-------------------CREATE GODOWN TABLE------------------
+CREATE TABLE Godown (
+Godown_ID VARCHAR(10),
+Store_ID VARCHAR(10) REFERENCES Grocery_Store(Store_ID),
+Capacity Int,
+PRIMARY KEY (Godown_ID)
+);
+
+BUAN 6320.002 GROUP PROJECT ASSIGNMENT MILESTONE-3
+
+24
+
+-----DROP TABLE GODOWN
+INSERT INTO Godown VALUES('G1','STR1','250');
+INSERT INTO Godown VALUES('G2','STR1','100');
+
+SELECT * FROM Godown;
+
+-------------------CREATE ITEM TABLE------------------
+
+CREATE TABLE Item (
+Item_ID Char(10) NOT NULL UNIQUE,
+Godown_ID VARCHAR(10) NOT NULL REFERENCES Godown(Godown_ID),
+I_Name VarChar(255),
+Cost VarChar(255),
+I_Type VarChar(255),
+CONSTRAINT pk_Item PRIMARY KEY ( Item_ID)
+);
+---DROP table Item
+
+BUAN 6320.002 GROUP PROJECT ASSIGNMENT MILESTONE-3
+
+25
+
+INSERT INTO Item VALUES('I1','G1','Mixed Veggies','10','Fruits and
+Vegetables');
+INSERT INTO Item VALUES('I2','G1','Icecream','5','Diary');
+INSERT INTO Item VALUES('I3','G1','Bread','3','Cereal and Breakfast');
+INSERT INTO Item VALUES('I4','G2','Frozen Meat','3','Meat');
+INSERT INTO Item VALUES('I5','G1','Oranges','5','Fruits and Vegetables');
+INSERT INTO Item VALUES('I6','G1','Cornflakes','7','Cereal and Breakfast');
+INSERT INTO Item VALUES('I7','G1','Whole Milk','6','Diary');
+
+SELECT * FROM ITEM;
+
+-------------------CREATE COUPON TABLE------------------
+
+CREATE TABLE [Coupon] (
+[Coupon_ID] Char(10),
+[Customer_ID] Char(10),
+[Store_ID] VarChar(10),
+[Discount Amount] varchar(10),
+
+BUAN 6320.002 GROUP PROJECT ASSIGNMENT MILESTONE-3
+
+26
+
+[Customer_Address] VarChar(255),
+PRIMARY KEY ([Coupon_ID])
+);
+
+-------DROP Table Coupon
+INSERT INTO Coupon VALUES('COU1','C1','STR1','1','Canyon Creek
+Apt,Dallas TX-76767');
+INSERT INTO Coupon VALUES('COU2','C1','STR1','3','Canyon Creek
+Apt,Dallas TX-76767');
+INSERT INTO Coupon VALUES('COU3','C1','STR1','2','Canyon Creek
+Apt,Dallas TX-76767');
+INSERT INTO Coupon VALUES('COUP1',NULL,NULL,NULL,NULL);
+INSERT INTO Coupon VALUES('COU4','C1','STR1','2','Canyon Creek
+Apt,Dallas TX-76767');
+INSERT INTO Coupon VALUES('COU5','C2','STR1','1','South side
+Apt,Richardson TX-78789');
+INSERT INTO Coupon VALUES('COU8','C2','STR1','1','South side
+Apt,Richardson TX-78789');
+INSERT INTO Coupon VALUES('COUP2',NULL,NULL,NULL,NULL);
+INSERT INTO Coupon VALUES('COUP10',NULL,NULL,NULL,NULL);
+
+BUAN 6320.002 GROUP PROJECT ASSIGNMENT MILESTONE-3
+
+27
+
+INSERT INTO Coupon VALUES('COU11','C4','STR1','1','700 E Ranger
+road,Plano TX-77778');
+INSERT INTO Coupon VALUES('COU10','C4','STR1','1','700 E Ranger
+road,Plano TX-77778');
+INSERT INTO Coupon VALUES('COUP3',NULL,NULL,NULL,NULL);
+INSERT INTO Coupon VALUES('COUP4',NULL,NULL,NULL,NULL);
+INSERT INTO Coupon VALUES('COUP5',NULL,NULL,NULL,NULL);
+INSERT INTO Coupon VALUES('COUP6',NULL,NULL,NULL,NULL);
+INSERT INTO Coupon VALUES('COUP7',NULL,NULL,NULL,NULL);
+INSERT INTO Coupon VALUES('COU 15','C6','STR1','4','Waterview
+Apartments,Plano TX-78989');
+INSERT INTO Coupon VALUES('COU 17','C6','STR1','2','Waterview
+Apartments,Plano TX-78989');
+INSERT INTO Coupon VALUES('COUP8',NULL,NULL,NULL,NULL);
+INSERT INTO Coupon VALUES('COUP9',NULL,NULL,NULL,NULL);
+INSERT INTO Coupon VALUES('COU 16','C8','STR1','2','Eastern creek
+Parkway,Dallas TX-77777');
+INSERT INTO Coupon VALUES('COU 18','C8','STR1','3','Eastern creek
+Parkway,Dallas TX-77777');
+INSERT INTO Coupon VALUES('COU 7','C8','STR1','2','Eastern creek
+Parkway,Dallas TX-77777');
+
+BUAN 6320.002 GROUP PROJECT ASSIGNMENT MILESTONE-3
+
+28
+
+SELECT * FROM Coupon;
+
+-------------------CREATE BILL TABLE------------------
+
+CREATE TABLE [Bill] (
+[Bill_ID] Char(10),
+[Order_ID] Char(10),
+[Customer_ID] Char(10),
+[Coupon_ID] Char(10),
+[Quantity] Char(10),
+[Date] varchar(255),
+[Time] varchar(255),
+[Total Amount] varchar(10),
+PRIMARY KEY ([Bill_ID])
+);
+--DROP TABLE Bill;
+
+INSERT INTO Bill Values('B4','O4','C1','COU1','5','5/1/2020','12:00:00
+PM','$31.00');
+
+BUAN 6320.002 GROUP PROJECT ASSIGNMENT MILESTONE-3
+
+29
+INSERT INTO Bill Values('B3','O3','C1','COUP1','1','5/2/2020','12:15:00
+PM','$5.00');
+INSERT INTO Bill Values('B2','O2','C1','COU4','1','5/2/2020','12:25:00
+PM','$3.00');
+INSERT INTO Bill Values('B1','O1','C2','COU5','3','7/2/2020','1:00:00
+PM','$7.00');
+INSERT INTO Bill Values('B8','O8','C3','COUP2','4','7/3/2020','12:10:00
+PM','$16.00');
+INSERT INTO Bill Values('B5','O5','C4','COU11','2','7/3/2020','12:15:00
+PM','$7.00');
+INSERT INTO Bill Values('B6','O6','C4','COUP3','1','7/3/2020','12:30:00
+PM','$3.00');
+INSERT INTO Bill Values('B10','O10','C5','COUP4','4','7/3/2020','12:40:00
+PM','$21.00');
+INSERT INTO Bill Values('B12','O12','C6','COU 15','3','7/3/2020','12:40:00
+PM','$9.00');
+INSERT INTO Bill Values('B11','O11','C7','COUP8','4','7/3/2020','12:45:00
+PM','$21.00');
+INSERT INTO Bill Values('B13','O13','C8','COU 16','3','7/4/2020','1:00:00
+PM','$11.00');
+
+SELECT * FROM Bill;
